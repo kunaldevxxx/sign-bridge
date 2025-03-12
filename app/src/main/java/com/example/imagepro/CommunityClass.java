@@ -405,7 +405,7 @@ public class CommunityClass extends AppCompatActivity {
                     if (documentSnapshot.exists()) {
                         String postImg = documentSnapshot.getString("postImages");
                         String descrip = documentSnapshot.getString("description");
-                        Picasso.with(CommunityClass.this).load(postImg).fit().centerCrop().into(postImage);
+                        Picasso.get().load(postImg).fit().centerCrop().into(postImage);
                         description.setText(descrip);
                     }
                 }

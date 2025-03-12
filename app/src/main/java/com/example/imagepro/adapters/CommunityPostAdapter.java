@@ -65,7 +65,7 @@ public class CommunityPostAdapter extends RecyclerView.Adapter<CommunityPostAdap
 
         CommunityModel model = modelList.get(position);
         holder.text.setText(model.getDescription());
-        Picasso.with(context).load(model.getPostImages()).fit().into(holder.postedImage);
+        Picasso.get().load(model.getPostImages()).fit().into(holder.postedImage);
 
         DocumentReference profileData = fStore.collection("users").document(model.getUserID());
         profileData.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -78,9 +78,9 @@ public class CommunityPostAdapter extends RecyclerView.Adapter<CommunityPostAdap
                     holder.organization.setText(org);
 
                     if (imageUrl != null && !imageUrl.equals("")) {
-                        Picasso.with(context).load(imageUrl).fit().into(holder.profileImage);
+                        Picasso.get().load(imageUrl).fit().into(holder.profileImage);
                     }else{
-                        Picasso.with(context).load(R.drawable.ic_baseline_account_circle_24).fit().centerCrop().into(holder.profileImage);
+                        Picasso.get().load(R.drawable.ic_baseline_account_circle_24).fit().centerCrop().into(holder.profileImage);
                     }
                 } else {
                     Toast.makeText(context, "Document does not exist", Toast.LENGTH_SHORT).show();

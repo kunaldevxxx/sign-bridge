@@ -49,9 +49,9 @@ public class AdminViewUserAdapter extends RecyclerView.Adapter<AdminViewUserAdap
         holder.org.setText(model.getOrganization());
         holder.userType.setText(model.getUsertype());
         if (!model.getProfileImages().equals("") && model.getProfileImages() != null){
-            Picasso.with(context).load(model.getProfileImages()).fit().centerCrop().into(holder.profileImage);
+            Picasso.get().load(model.getProfileImages()).fit().centerCrop().into(holder.profileImage);
         }else{
-            Picasso.with(context).load(R.drawable.ic_baseline_account_circle_24).fit().centerCrop().into(holder.profileImage);
+            Picasso.get().load(R.drawable.ic_baseline_account_circle_24).fit().centerCrop().into(holder.profileImage);
         }
 
         holder.editMenu.setOnClickListener(new View.OnClickListener() {
