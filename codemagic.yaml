@@ -1,1 +1,56 @@
+workflows:
+  android-app:
+    name: Android App Build
+    max_build_duration: 60
+    environment:
+      android_signing:
+        - keystore_reference
+      groups:
+        - google_play
+      vars:
+        PACKAGE_NAME: "com.example.SLTS" # From your build.gradle
+    scripts:
+      - name: Set up local properties
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+      
+      - name: Set up gradle permissions
+        script: |
+          chmod +x gradlew
+
+      - name: Build Android app
+        script: |
+          ./gradlew assembleDebug
+        
+      - name: Build Android release
+        script: |
+          ./gradlew bundleRelease
+
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
+      - app/build/outputs/bundle/release/*.aab
+      
+    publishing:
+      email:
+        recipients:
+          - kunalkhare2004@gmail.com
+        notify:
+          success: true
+          failure: true
+          
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+        - $HOME/.gradle/wrapper
+        
+    triggering:
+      events:
+        - push
+        - tag
+        - pull_request
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+
 
