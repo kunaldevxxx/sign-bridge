@@ -4,12 +4,30 @@ workflows:
     max_build_duration: 60
     environment:
       android_signing:
-        - keystore_reference
+        - keystoreFile: release.keystore
+          keystorePassword: ${KEYSTORE_PASSWORD}
+          keyAlias: ${KEY_ALIAS}
+          keyPassword: ${KEY_PASSWORD}
       groups:
         - google_play
       vars:
-        PACKAGE_NAME: "com.example.SLTS" # From your build.gradle
+        PACKAGE_NAME: "com.example.SLTS"
+        JAVA_HOME: /usr/lib/jvm/java-11-openjdk
+      java: 11
     scripts:
+      - name: Create debug keystore
+        script: |
+          keytool -genkeypair \
+            -keystore debug.keystore \
+            -storepass android \
+            -keypass android \
+            -alias androiddebugkey \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=Android Debug,O=Android,C=US" \
+            -v
+
       - name: Set up local properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
@@ -18,22 +36,17 @@ workflows:
         script: |
           chmod +x gradlew
 
-      - name: Build Android app
+      - name: Build Android debug APK
         script: |
           ./gradlew assembleDebug
-        
-      - name: Build Android release
-        script: |
-          ./gradlew bundleRelease
 
     artifacts:
       - app/build/outputs/apk/debug/*.apk
-      - app/build/outputs/bundle/release/*.aab
       
     publishing:
       email:
         recipients:
-          - kunalkhare2004@gmail.com
+          - ${EMAIL_ADDRESS}  # Will be set in Codemagic UI
         notify:
           success: true
           failure: true
@@ -46,11 +59,8 @@ workflows:
     triggering:
       events:
         - push
-        - tag
         - pull_request
       branch_patterns:
         - pattern: master
           include: true
           source: true
-
-
