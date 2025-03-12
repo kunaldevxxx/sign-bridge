@@ -136,7 +136,7 @@ public class ProfileActivity extends AppCompatActivity {
                     email.setText(mail);
                     organ.setText(org);
                     if (!imageUrl.equals("") && imageUrl != null) {
-                        Picasso.with(getApplicationContext()).load(imageUrl).fit().centerCrop().into(profileImage);
+                        Picasso.get().load(imageUrl).fit().centerCrop().into(profileImage);
                         profileImage.setBackground(null);
                     }
 
@@ -371,7 +371,7 @@ public class ProfileActivity extends AppCompatActivity {
 //                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 //                        uploadedImage = bitmap;
 //                        postImage.setImageBitmap(bitmap);
-                        Picasso.with(getApplicationContext()).load(getImageUri()).fit().centerCrop().into(profileImage);
+                        Picasso.get().load(getImageUri()).fit().centerCrop().into(profileImage);
                         profileImage.setBackground(null);
 //                        File selectedImageFile = new File(getPathFromUri(getImageUri));
                     } catch (Exception e) {

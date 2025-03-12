@@ -367,7 +367,7 @@ public class CommunityClass extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         description.setText("");
-                        Picasso.with(getApplicationContext()).load((Uri) null).fit().centerCrop().into(postImage);
+                        Picasso.get().load((Uri) null).fit().centerCrop().into(postImage);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -448,7 +448,7 @@ public class CommunityClass extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     description.setText("");
-                    Picasso.with(getApplicationContext()).load((Uri) null).fit().centerCrop().into(postImage);
+                    Picasso.get().load((Uri) null).fit().centerCrop().into(postImage);
                     bottomSheetDialog.dismiss();
                 }
             });
@@ -621,7 +621,7 @@ public class CommunityClass extends AppCompatActivity {
 //                        InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
 //                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 //                        uploadedImage = bitmap;
-                        Picasso.with(getApplicationContext()).load(getUploadedImageUri()).fit().centerCrop().into(postImage);
+                        Picasso.get().load(getUploadedImageUri()).fit().centerCrop().into(postImage);
 
 
 //                        File selectedImageFile = new File(getPathFromUri(selectedImageUri));

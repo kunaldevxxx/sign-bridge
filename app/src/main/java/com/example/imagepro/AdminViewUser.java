@@ -554,7 +554,7 @@ public class AdminViewUser extends AppCompatActivity {
 //                        InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
 //                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 //                        uploadedImage = bitmap;
-                        Picasso.with(getApplicationContext()).load(getUploadedImageUri()).fit().centerCrop().into(postImage);
+                        Picasso.get().load(getUploadedImageUri()).fit().centerCrop().into(postImage);
 
 
 
